@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relógio Digital</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1c1f4a, #3a8cc1);
+        color: #fff;
+      }
+
+      .clock {
+        text-align: center;
+        padding: 2.5rem 3rem;
+        border-radius: 1.5rem;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      .clock h1 {
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        margin: 0;
+        letter-spacing: 0.15em;
+      }
+
+      .clock p {
+        margin-top: 0.5rem;
+        font-size: 1.2rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="clock">
+      <h1 id="time">00:00:00</h1>
+      <p id="date">Carregando...</p>
+    </main>
+    <script>
+      function formatUnit(value) {
+        return String(value).padStart(2, "0");
+      }
+
+      function updateClock() {
+        const now = new Date();
+        const hours = formatUnit(now.getHours());
+        const minutes = formatUnit(now.getMinutes());
+        const seconds = formatUnit(now.getSeconds());
+
+        const timeElement = document.getElementById("time");
+        const dateElement = document.getElementById("date");
+
+        timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+        dateElement.textContent = now.toLocaleDateString("pt-BR", {
+          weekday: "long",
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        });
+      }
+
+      updateClock();
+      setInterval(updateClock, 1000);
+    </script>
+  </body>
+</html>
